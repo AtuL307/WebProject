@@ -8,6 +8,8 @@ var methodOverride = require("method-override");
 
     const mongoose = require("mongoose");
 
+    const MONGO_URL = 'mongodb://127.0.0.1:27017/wanderlust';
+
     main().then(() =>{
         console.log("connection establish");
     })
@@ -16,7 +18,7 @@ var methodOverride = require("method-override");
     })
 
     async function main(){
-        await mongoose.connect('mongodb://127.0.0.1:27017/wanderlust');
+        await mongoose.connect(MONGO_URL);
     }
 
 app.use(methodOverride('_method'));
