@@ -3,6 +3,10 @@ const app = express();
 const path = require("path");
 var methodOverride = require("method-override");
 
+/// Import from model
+
+    const Listing = require("./model/listing.js");
+
 
 ///Mongoose db conection
 
@@ -29,7 +33,8 @@ app.use(express.json());
 app.set("view engine","ejs");
 app.set("views", path.join(__dirname,"/views"))
 
-app.use(express.static(path.join(__dirname,"/public")));
+app.use(express.static(path.join(__dirname,"/public/css")));
+app.use(express.static(path.join(__dirname,"/public/js")));
 
 const port = 3000;
 app.listen(port , ()=> {
