@@ -8,7 +8,7 @@ var methodOverride = require("method-override");
     const Listing = require("./model/listing.js");
 
 
-///Mongoose db conection
+///Mongoose db connection
 
     const mongoose = require("mongoose");
 
@@ -36,7 +36,15 @@ app.set("views", path.join(__dirname,"/views"))
 app.use(express.static(path.join(__dirname,"/public/css")));
 app.use(express.static(path.join(__dirname,"/public/js")));
 
-const port = 3000;
-app.listen(port , ()=> {
-    console.log(`Server is connected to port ${port} `);
-});
+/// Server listening 
+    const port = 3000;
+    app.listen(port , ()=> {
+        console.log(`Server is connected to port ${port} `);
+    });
+
+/// GET request
+    // Index route
+    app.get("/listings", async (req,res) => {
+        let allListing = await Listing.find();
+        res.render("listing/index.ejs" , {allListing});
+    });
