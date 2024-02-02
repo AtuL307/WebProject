@@ -48,3 +48,38 @@ app.use(express.static(path.join(__dirname,"/public/js")));
         let allListing = await Listing.find();
         res.render("listing/index.ejs" , {allListing});
     });
+
+    // New route
+    app.get("/listings/new", (req,res) => {
+        res.render("listing/new.ejs");
+    });
+
+    // Show route
+    app.get("/listings/:id", async(req,res) => {
+        let{id} = req.params;
+        const listing = await Listing.findById(id);
+        //console.log(id);
+        res.render("listing/show.ejs" , {listing});
+    });
+
+/// POST
+
+    app.post("/listings",(req,res) => {
+        let{title,description,image,price,location,country} = req.body;
+        let newListing = new Listing({
+            title: title,
+            description: description,
+            image: image,
+            price: price,
+            location: location,
+            country: country,
+        });
+
+        newListing.save().then(res => {
+            console.log("New listing was save");
+        })
+        .catch(err => {
+            console.log(err);
+        })
+        
+    });
