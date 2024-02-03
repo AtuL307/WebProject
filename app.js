@@ -1,7 +1,8 @@
 const express = require("express");
 const app = express();
 const path = require("path");
-var methodOverride = require("method-override");
+const methodOverride = require("method-override");
+const ejsMate = require("ejs-mate");
 
 /// Import from model
 
@@ -32,6 +33,8 @@ app.use(express.json());
 
 app.set("view engine","ejs");
 app.set("views", path.join(__dirname,"/views"))
+
+app.engine("ejs", ejsMate);
 
 app.use(express.static(path.join(__dirname,"/public/css")));
 app.use(express.static(path.join(__dirname,"/public/js")));
