@@ -42,7 +42,7 @@ app.use(express.static(path.join(__dirname,"/public/js")));
         console.log(`Server is connected to port ${port} `);
     });
 
-/// GET request
+/// GET Request
     // Index route
     app.get("/listings", async (req,res) => {
         let allListing = await Listing.find();
@@ -54,6 +54,14 @@ app.use(express.static(path.join(__dirname,"/public/js")));
         res.render("listing/new.ejs");
     });
 
+    //Edit route 
+    app.get("/listings/:id/edit", async(req,res) =>{
+        let{id} = req.params;
+        let listing = await Listing.findById(id);
+        //console.log(editList);
+        res.render("listing/edit.ejs",{listing});
+    });
+
     // Show route
     app.get("/listings/:id", async(req,res) => {
         let{id} = req.params;
@@ -62,24 +70,40 @@ app.use(express.static(path.join(__dirname,"/public/js")));
         res.render("listing/show.ejs" , {listing});
     });
 
-/// POST
+    
 
-    app.post("/listings",(req,res) => {
-        let{title,description,image,price,location,country} = req.body;
-        let newListing = new Listing({
-            title: title,
-            description: description,
-            image: image,
-            price: price,
-            location: location,
-            country: country,
-        });
+/// POST Request
 
-        newListing.save().then(res => {
+    app.post("/listings", async (req,res) => {
+        //let{title,description,image,price,location,country} = req.body;
+        //console.log(req.body.Listing);
+        let newListing = new Listing(req.body.Listing);
+
+        await newListing.save().then(res => {
             console.log("New listing was save");
         })
         .catch(err => {
             console.log(err);
         })
         
+        res.redirect("/listings")
+    });
+
+/// PUT Request
+
+    app.put("/listings/:id", async(req,res) => {
+        let{id} = req.params;
+        let list = req.body.Listing;
+        //console.log(list);
+        let l = await Listing.findByIdAndUpdate(id , {...list},{new:true});
+        //console.log(l);
+        res.redirect(`/listings/${id}`);
+    });
+
+/// DELETE Request
+
+    app.delete("/listings/:id", async(req,res) => {
+        let{id} = req.params;
+        await Listing.findByIdAndDelete(id);
+        res.redirect("/listings"); 
     });

@@ -14,7 +14,17 @@
         <li><b><%= listing.price.toLocaleString("en-IN",{style:"currency",currency:"INR",}) %></b></li>
         <li><%= listing.location%></li>
         <li><%= listing.country%></li>
-        
-    </ul>   
+    </ul>
+    <br>
+    
+    <a href="/listings"><button>Home</button></a>
+    <a href="/listings/<%= listing._id %>/edit"><button>Edit this listing</button></a>   
+    <br><br>
+
+    <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE">
+        <button>Delete</button>
+    </form>
+    
+    
 </body>
 </html>

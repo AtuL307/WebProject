@@ -8,5 +8,8 @@
   },
   "keywords": [],
   "author": "Atul021",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "ejs-mate": "^4.0.0"
+  }
 }

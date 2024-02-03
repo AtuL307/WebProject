@@ -8,7 +8,7 @@
 <body>
     <h3>Edit your listing</h3>
     <div>
-        <form method="POST" action="/listings/<%=listing._id%>?_method = PUT">
+        <form method="POST" action="/listings/<%= listing._id %>?_method=PUT">
             
             <label for="title">Title</label>
             <input type="text" name="Listing[title]"  value="<%= listing.title %>" >
@@ -35,6 +35,7 @@
 
             <button>Update</button>
         </form>
+        
     </div>
 </body>
 </html>
